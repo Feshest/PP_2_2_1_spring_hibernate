@@ -2,21 +2,22 @@ package hiber.model;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "cars")
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long car_id;
+    private Long id;
+
     @Column(name = "series")
     private int series;
     @Column(name = "model")
     private String model;
 
-    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     private User user;
-
 
     public Car() {
 
@@ -25,6 +26,12 @@ public class Car {
     public Car(String model, int series) {
         this.model = model;
         this.series = series;
+    }
+
+    public Car(String model, int series, User user) {
+        this.model = model;
+        this.series = series;
+        this.user = user;
     }
 
     public String getModel() {
@@ -43,5 +50,20 @@ public class Car {
         this.series = series;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", series=" + series +
+                ", model='" + model + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
 package hiber.model;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 @Table(name = "users")
@@ -19,17 +20,13 @@ public class User {
    @Column(name = "email")
    private String email;
 
-   @OneToOne(cascade = CascadeType.ALL)
-   @PrimaryKeyJoinColumn(name = "car_id")
-   private Car car;
 
    public User() {}
    
-   public User(String firstName, String lastName, String email, Car car) {
+   public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
-      this.car = car;
    }
 
    public Long getId() {
@@ -64,14 +61,6 @@ public class User {
       this.email = email;
    }
 
-   public Car getCar() {
-      return car;
-   }
-
-   public void setCar(Car car) {
-      this.car = car;
-   }
-
    @Override
    public String toString() {
       return "User{" +
@@ -79,7 +68,6 @@ public class User {
               ", firstName='" + firstName + '\'' +
               ", lastName='" + lastName + '\'' +
               ", email='" + email + '\'' +
-              ", car=" + car.getModel() + " " + car.getSeries() +
               '}';
    }
 }
